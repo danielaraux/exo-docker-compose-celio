@@ -33,9 +33,22 @@ var_dump($_GET);
 
 
     <main>
-
-
-
+        <div class="d-flex flex-wrap justify-content-center">
+            <?php
+            foreach ($clothes as $items): ?>
+                <div class="card m-3" style="width: 18rem;">
+                    <img src="<?= $items['gallery'] ?>" class="" alt="<?= $items['name'] ?>" style="height: 18rem">
+                    <div class="card-body">
+                        <h3 class="card-title"><?= $items['name'] ?></h3>
+                        <p class="card-text"><?= $items['gender'] ?></p>
+                        <p class="card-text">Description</p>
+                        <p class="card-text"><?= $items['size'] ?></p>
+                        <p class="card-text"><b><?= number_format($items['price'], 2, ',', ' ') ?> €</b></p>
+                    </div>
+                </div>
+            <?php endforeach;
+            ?>
+        </div>
     </main>
 
 
