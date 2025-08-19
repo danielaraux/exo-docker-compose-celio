@@ -11,8 +11,7 @@
 
 /* `celio`.`vet` */
 $clothes = array(
-  array('id' => '1', 'name' => 'T-shirt bleu', 'size' => 'M', 'price' => '19.99', 'type' => 't-shirt', 'gender' => 'homme', 'gallery' => 'tshirt_bleu_2.avif
-,tshirt_bleu_1.webp', 'main' => 'tshirt_bleu_1.webp'),
+  array('id' => '1', 'name' => 'T-shirt bleu', 'size' => 'M', 'price' => '19.99', 'type' => 't-shirt', 'gender' => 'homme', 'gallery' => 'tshirt_bleu_2.avif', 'tshirt_bleu_1.webp', 'main' => 'tshirt_bleu_1.webp'),
 
   array('id' => '2', 'name' => 'Pantalon noir', 'size' => 'L', 'price' => '39.99', 'type' => 'pantalon', 'gender' => 'femme', 'gallery' => 'pantalon_noir_1.webp,pantalon_noir_2.jpg', 'main' => 'pantalon_noir_1.webp'),
 

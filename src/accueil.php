@@ -1,7 +1,32 @@
 <?php
 require_once('products/clothes.php');
 var_dump($_GET);
+
+// On change automatiquement les articles au refresh de la page
+shuffle($clothes);
+
+$alltypes = [
+    'pantalon',
+    't-shirt',
+    'pull',
+    'sweat-shirt',
+    'chemise'
+];
+
+
+// Si cat existe (le nom des catégories), alors on stocke sa valeur dans type, sinon, on stocke sa valeur dans la variable noFound
+if (isset($_GET["cat"])) {
+    $type = $_GET["cat"];
+    if (!in_array($type, $alltypes)) {
+        $noFound = true;
+    }
+} else {
+    $type = "all";
+}
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -15,41 +40,65 @@ var_dump($_GET);
 </head>
 
 <body class="text-center">
-    <h1><a href="accueil.php">Page Accueil</a></h1>
-
-    <h2>Shop</h2>
+    <h1><a href="accueil.php" class="text-decoration-none">Celio by AFPA</a></h1>
 
     <header>
         <nav>
-            <div class="d-flex border justify-content-around p-5">
-                <a href="accueil.php?cat=t-shirt">T-shirts</a>
-                <a href="accueil.php?cat=pantalons">Pantalons</a>
-                <a href="accueil.php?cat=sweat-shirts">Sweat-shirts</a>
-                <a href="accueil.php?cat=pulls">Pulls</a>
-                <a href="accueil.php?cat=chemises">Chemises</a>
+
+            <!-- On dit que dans l'url de chaque section ça prendra la catégorie (cat) de la section -->
+            <div class="d-flex justify-content-around p-5 w-75 mx-auto">
+                <a href="accueil.php" class="text-decoration-none"><b>Tous les articles</b></a>
+                <a href="accueil.php?cat=t-shirt" class="text-decoration-none"><b>T-shirts</b></a>
+                <a href="accueil.php?cat=pantalon" class="text-decoration-none"><b>Pantalons</b></a>
+                <a href="accueil.php?cat=sweat-shirt" class="text-decoration-none"><b>Sweat-shirts</b></a>
+                <a href="accueil.php?cat=pull" class="text-decoration-none"><b>Pulls</b></a>
+                <a href="accueil.php?cat=chemise" class="text-decoration-none"><b>Chemises</b></a>
             </div>
         </nav>
     </header>
 
 
     <main>
-        <div class="d-flex flex-wrap justify-content-center">
-            <?php
-            foreach ($clothes as $items): ?>
-                <div class="card m-3" style="width: 18rem;">
-                    <img src="<?= $items['gallery'] ?>" class="" alt="<?= $items['name'] ?>" style="height: 18rem">
-                    <div class="card-body">
-                        <h3 class="card-title"><?= $items['name'] ?></h3>
-                        <p class="card-text"><?= $items['gender'] ?></p>
-                        <p class="card-text">Description</p>
-                        <p class="card-text"><?= $items['size'] ?></p>
-                        <p class="card-text"><b><?= number_format($items['price'], 2, ',', ' ') ?> €</b></p>
+
+        <!-- On crée une condition pour le cas où si une personne change l'url, on va afficher un message d'erreur -->
+        <!-- Si noFound existe, on va afficher le message d'erreur -->
+        <?php if (isset($noFound)) { ?>
+            <p class="">La catégorie <b><?= $type ?></b> n'existe pas</p>
+        <?php } else ?>
+
+
+
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <!-- On crée une boucle foreach pour parcourir le tableau clothes -->
+                <!-- Si le type des éléments du tableau sont différents de la variable type et que la variable type a une valeur différente de 'all' -->
+                <!-- On continue sans afficher -->
+                <?php foreach ($clothes as $items):
+                    if ($items['type'] != $type && $type != 'all') {
+                        continue;
+                    }
+
+                ?>
+
+
+                    <div class="col-md-4 d-flex justify-content-center my-4">
+                        <div class="card" style="width: 18rem;">
+                            <img src="assets/img/<?= $items['main'] ?>" alt="<?= $items['name'] ?>" style="height: 18rem;">
+                            <div class="card-body">
+                                <h3 class="card-title"><?= $items['name'] ?></h3>
+                                <p class="card-text"><?= $items['gender'] ?></p>
+                                <p class="card-text">Description</p>
+                                <p class="card-text"><?= $items['size'] ?></p>
+                                <p class="card-text"><b><?= number_format($items['price'], 2, ',', ' ') ?> €</b></p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            <?php endforeach;
-            ?>
+                <?php endforeach; ?>
+            </div>
         </div>
     </main>
+
 
 
 
